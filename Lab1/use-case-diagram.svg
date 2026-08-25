@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="910" viewBox="0 0 1000 910" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="inc" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10" fill="none" stroke="#1d4ed8" stroke-width="1.4"/>
+    </marker>
+    <marker id="ext" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10" fill="none" stroke="#b45309" stroke-width="1.4"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="910" fill="#ffffff"/>
+
+  <!-- ===== System boundary ===== -->
+  <rect x="185" y="45" width="740" height="710" fill="none" stroke="#6b7280" stroke-width="1.5" rx="4"/>
+  <text x="202" y="72" font-size="14.5" font-weight="600" fill="#374151">Pharmacy Expiry &amp; Re-order Dispatch Engine</text>
+
+  <!-- ===== Association lines (drawn first, under the shapes) ===== -->
+  <g stroke="#4b5563" stroke-width="1.4" fill="none">
+    <line x1="96" y1="218" x2="282" y2="145"/>
+    <line x1="96" y1="218" x2="241" y2="224"/>
+    <line x1="96" y1="235" x2="313" y2="420"/>
+    <polyline points="96,238 150,272 150,690 240,696"/>
+    <line x1="96" y1="592" x2="317" y2="374"/>
+    <line x1="96" y1="592" x2="245" y2="578"/>
+    <line x1="604" y1="806" x2="384" y2="600"/>
+    <line x1="608" y1="800" x2="417" y2="723"/>
+  </g>
+
+  <!-- ===== include / extend dependencies ===== -->
+  <g stroke-width="1.5" fill="none" stroke-dasharray="7,5">
+    <line x1="443" y1="210" x2="624" y2="174" stroke="#1d4ed8" marker-end="url(#inc)"/>
+    <line x1="448" y1="243" x2="617" y2="269" stroke="#1d4ed8" marker-end="url(#inc)"/>
+    <line x1="407" y1="313" x2="662" y2="184" stroke="#1d4ed8" marker-end="url(#inc)"/>
+    <line x1="447" y1="552" x2="618" y2="525" stroke="#1d4ed8" marker-end="url(#inc)"/>
+    <line x1="616" y1="381" x2="450" y2="357" stroke="#b45309" marker-end="url(#ext)"/>
+    <line x1="615" y1="605" x2="450" y2="582" stroke="#b45309" marker-end="url(#ext)"/>
+  </g>
+  <g font-size="11" font-style="italic" text-anchor="middle">
+    <text x="533" y="185" fill="#1d4ed8">&#171;include&#187;</text>
+    <text x="533" y="250" fill="#1d4ed8">&#171;include&#187;</text>
+    <text x="612" y="203" fill="#1d4ed8">&#171;include&#187;</text>
+    <text x="533" y="533" fill="#1d4ed8">&#171;include&#187;</text>
+    <text x="533" y="363" fill="#b45309">&#171;extend&#187;</text>
+    <text x="533" y="588" fill="#b45309">&#171;extend&#187;</text>
+  </g>
+
+  <!-- ===== Primary use cases ===== -->
+  <g fill="#F7FAFF" stroke="#3B5B8C" stroke-width="1.6">
+    <ellipse cx="350" cy="118" rx="110" ry="34"/>
+    <ellipse cx="350" cy="228" rx="110" ry="34"/>
+    <ellipse cx="350" cy="342" rx="110" ry="34"/>
+    <ellipse cx="350" cy="452" rx="110" ry="34"/>
+    <ellipse cx="350" cy="568" rx="110" ry="34"/>
+    <ellipse cx="350" cy="696" rx="110" ry="34"/>
+  </g>
+  <!-- ===== Included / extending use cases ===== -->
+  <g fill="#FFFBF2" stroke="#8a6d3b" stroke-width="1.6">
+    <ellipse cx="720" cy="155" rx="116" ry="34"/>
+    <ellipse cx="720" cy="285" rx="116" ry="34"/>
+    <ellipse cx="720" cy="396" rx="116" ry="34"/>
+    <ellipse cx="720" cy="508" rx="116" ry="34"/>
+    <ellipse cx="720" cy="620" rx="116" ry="34"/>
+  </g>
+
+  <!-- ===== Use-case labels ===== -->
+  <g text-anchor="middle">
+    <g font-size="9.5" fill="#6b7280">
+      <text x="350" y="109">UC-01</text>
+      <text x="350" y="211">UC-02</text>
+      <text x="350" y="333">UC-03</text>
+      <text x="350" y="435">UC-04</text>
+      <text x="350" y="551">UC-05</text>
+      <text x="350" y="679">UC-06</text>
+      <text x="720" y="146">UC-07</text>
+      <text x="720" y="276">UC-08</text>
+      <text x="720" y="387">UC-09</text>
+      <text x="720" y="499">UC-10</text>
+      <text x="720" y="603">UC-11</text>
+    </g>
+    <g font-size="12.5" fill="#111827">
+      <text x="350" y="127">Register Medicine Batch</text>
+      <text x="350" y="227">Dispense Medicine</text>
+      <text x="350" y="243">(FEFO Checkout)</text>
+      <text x="350" y="351">Run Daily Expiry Sweep</text>
+      <text x="350" y="451">Configure Re-order</text>
+      <text x="350" y="467">Threshold</text>
+      <text x="350" y="567">Generate &amp; Dispatch</text>
+      <text x="350" y="583">Purchase Order</text>
+      <text x="350" y="695">Receive Supplier</text>
+      <text x="350" y="711">Consignment</text>
+      <text x="720" y="164">Validate Batch Expiry</text>
+      <text x="720" y="294">Update Stock Ledger</text>
+      <text x="720" y="405">Quarantine Expired Batch</text>
+      <text x="720" y="517">Evaluate Stock Threshold</text>
+      <text x="720" y="619">Escalate Critical</text>
+      <text x="720" y="635">Stock-Out Alert</text>
+    </g>
+  </g>
+
+  <!-- ===== Actors ===== -->
+  <g stroke="#1f2937" stroke-width="1.8" fill="none">
+    <!-- Pharmacy Clerk -->
+    <circle cx="78" cy="200" r="15"/>
+    <line x1="78" y1="215" x2="78" y2="260"/>
+    <line x1="52" y1="230" x2="104" y2="230"/>
+    <line x1="78" y1="260" x2="56" y2="292"/>
+    <line x1="78" y1="260" x2="100" y2="292"/>
+    <!-- Scheduler -->
+    <circle cx="78" cy="575" r="15"/>
+    <line x1="78" y1="590" x2="78" y2="635"/>
+    <line x1="52" y1="605" x2="104" y2="605"/>
+    <line x1="78" y1="635" x2="56" y2="667"/>
+    <line x1="78" y1="635" x2="100" y2="667"/>
+    <!-- Inventory Supplier -->
+    <circle cx="620" cy="796" r="15"/>
+    <line x1="620" y1="811" x2="620" y2="850"/>
+    <line x1="594" y1="826" x2="646" y2="826"/>
+    <line x1="620" y1="850" x2="598" y2="878"/>
+    <line x1="620" y1="850" x2="642" y2="878"/>
+  </g>
+  <g text-anchor="middle" font-size="12.5" fill="#111827">
+    <text x="78" y="312">Pharmacy Clerk</text>
+    <text x="78" y="687">Scheduler</text>
+    <text x="78" y="703" font-size="10.5" font-style="italic" fill="#6b7280">&#171;system&#187;</text>
+    <text x="620" y="896">Inventory Supplier</text>
+  </g>
+
+  <!-- ===== Legend ===== -->
+  <rect x="60" y="762" width="470" height="118" fill="#fafafa" stroke="#d1d5db" stroke-width="1" rx="4"/>
+  <text x="76" y="783" font-size="12" font-weight="600" fill="#374151">Legend</text>
+  <g stroke-width="1.5" fill="none">
+    <line x1="78" y1="805" x2="128" y2="805" stroke="#4b5563" stroke-width="1.4"/>
+    <line x1="78" y1="835" x2="128" y2="835" stroke="#1d4ed8" stroke-dasharray="7,5" marker-end="url(#inc)"/>
+    <line x1="78" y1="863" x2="128" y2="863" stroke="#b45309" stroke-dasharray="7,5" marker-end="url(#ext)"/>
+  </g>
+  <g font-size="11.5" fill="#374151">
+    <text x="144" y="809">Association — actor participates in the use case</text>
+    <text x="144" y="839">&#171;include&#187; — base use case always invokes the included one</text>
+    <text x="144" y="867">&#171;extend&#187; — optional behaviour, fires at an extension point</text>
+  </g>
+</svg>
