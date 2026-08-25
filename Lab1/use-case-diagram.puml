@@ -1,0 +1,69 @@
+@startuml pharmacy-expiry-reorder-engine
+' Problem Statement #15 - Pharmacy Expiry & Re-order Dispatch Engine
+' Lab 1: Requirements Engineering & UML Use-Case Modelling
+' Render:  java -jar plantuml.jar -tsvg use-case-diagram.puml
+'          (or paste into https://www.plantuml.com/plantuml)
+
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #F7FAFF
+  BorderColor #3B5B8C
+  ArrowColor #3B5B8C
+}
+
+actor "Pharmacy Clerk"    as Clerk
+actor "Inventory Supplier" as Supplier
+actor "Scheduler"          as Sched <<system>>
+
+rectangle "Pharmacy Expiry & Re-order Dispatch Engine" {
+
+  usecase "UC-01\nRegister Medicine Batch"          as UC01
+  usecase "UC-02\nDispense Medicine (FEFO Checkout)" as UC02
+  usecase "UC-03\nRun Daily Expiry Sweep"           as UC03
+  usecase "UC-04\nConfigure Re-order Threshold"     as UC04
+  usecase "UC-05\nGenerate & Dispatch Purchase Order" as UC05
+  usecase "UC-06\nReceive Supplier Consignment"     as UC06
+
+  usecase "UC-07\nValidate Batch Expiry"            as UC07
+  usecase "UC-08\nUpdate Stock Ledger"              as UC08
+  usecase "UC-09\nQuarantine Expired Batch"         as UC09
+  usecase "UC-10\nEvaluate Stock Threshold"         as UC10
+  usecase "UC-11\nEscalate Critical Stock-Out Alert" as UC11
+}
+
+' --- Actor associations ---
+Clerk --> UC01
+Clerk --> UC02
+Clerk --> UC04
+Clerk --> UC06
+
+Sched --> UC03
+Sched --> UC05
+
+UC05 --> Supplier
+UC06 --> Supplier
+
+' --- Include relationships ---
+UC02 ..> UC07 : <<include>>
+UC02 ..> UC08 : <<include>>
+UC03 ..> UC07 : <<include>>
+UC05 ..> UC10 : <<include>>
+
+' --- Extend relationships ---
+UC09 ..> UC03 : <<extend>>
+UC11 ..> UC05 : <<extend>>
+
+note bottom of UC09
+  Extension point: batch found
+  with expiry_date < today
+end note
+
+note bottom of UC11
+  Extension point: dispensable
+  stock reaches zero
+end note
+
+@enduml
