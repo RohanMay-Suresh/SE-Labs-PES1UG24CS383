@@ -4,18 +4,51 @@
 
 | | |
 |---|---|
-| **Student** | Rohan |
+| **Student** | Rohan May Suresh |
 | **SRN** | PES1UG24CS383 |
 | **Problem Statement** | **#15 — Pharmacy Expiry & Re-order Dispatch Engine** |
 | **Domain** | Healthcare & Telemedicine |
 
 ---
 
-## 1. Problem Context & Overview
+## 1. Deliverables
+
+The three artefacts required by the lab handout, in the formats it specifies:
+
+| # | Handout requirement | Submitted file |
+|---|---|---|
+| 1 | Requirements Table (**Word/Excel**) — exactly 5 FRs and 2 NFRs with Req ID, Type, Description, Priority, Acceptance Criteria, Rationale | **[`Requirements_Table.docx`](Requirements_Table.docx)** |
+| 2 | UML Use-Case Diagram (**PDF**) — all actors and use cases, at least one `«include»` / `«extend»` | **[`Use_Case_Diagram.pdf`](Use_Case_Diagram.pdf)** |
+| 3 | Use-Case Flow Document (**Word, one page**; exported to PDF per step 7) | **[`Use_Case_Flow.docx`](Use_Case_Flow.docx)** · **[`Use_Case_Flow.pdf`](Use_Case_Flow.pdf)** |
+
+### Supporting files
+
+| File | Purpose |
+|---|---|
+| [`requirements.md`](requirements.md) | Markdown mirror of the requirements table, so it renders directly on GitHub |
+| [`use-case-flow.md`](use-case-flow.md) | Markdown mirror of the use-case flow |
+| [`use-case-diagram.svg`](use-case-diagram.svg) | Vector source of the diagram, embedded below |
+| [`use-case-diagram.puml`](use-case-diagram.puml) | PlantUML source, for regenerating the diagram |
+
+### Handout checklist
+
+| Requirement | Status |
+|---|---|
+| Exactly 5 FRs (FR-001 given) and 2 NFRs (NFR-001 given) | ✔ FR-001…FR-005, NFR-001…NFR-002 |
+| All six columns, `"The system shall…"` phrasing, measurable pass/fail criteria | ✔ |
+| At least 3 actors | ✔ 3 — Pharmacy Clerk, Inventory Supplier, Scheduler |
+| At least 5 use cases, labelled UC-01… | ✔ 11 — UC-01 to UC-11 |
+| At least one `«include»` or `«extend»` | ✔ 4 `«include»`, 2 `«extend»` |
+| Main success scenario + at least one alternate flow | ✔ 10 steps + alternate flow 6a |
+| Use-case flow fits one page | ✔ |
+
+---
+
+## 2. Problem Context & Overview
 
 Hospital pharmacies need an automated stock management engine that tracks batch expiry dates, generates **First-Expired-First-Out (FEFO)** dispensing lists, and triggers automated purchase orders when stock hits a threshold.
 
-The engine sits between the dispensing counter and the supplier. It holds every medicine as a set of *batches*, each with its own expiry date, so that a stock figure is never just a number — it is a queue ordered by expiry. Three things follow from that model:
+The engine sits between the dispensing counter and the supplier. It holds every medicine as a set of *batches*, each with its own expiry date, so a stock figure is never just a number — it is a queue ordered by expiry. Three things follow from that model:
 
 - **Dispensing** must always draw from the batch closest to expiry (FEFO), so stock is consumed before it ages out.
 - **Expiry** is a date-driven event with no human trigger behind it, so the engine sweeps stock daily, warns on near-expiry batches and quarantines those already expired.
@@ -28,16 +61,6 @@ The engine sits between the dispensing counter and the supplier. It holds every 
 | **Pharmacy Clerk** | Primary, human | Registers incoming batches, dispenses medicine at checkout, configures per-item re-order thresholds, receives supplier consignments. |
 | **Inventory Supplier** | Secondary, external | Receives dispatched purchase orders and delivers the consignment against them. |
 | **Scheduler** | Secondary, system / time | Initiates the daily expiry sweep and the post-movement threshold evaluation. Modelled as an actor because these flows are time-triggered, not user-triggered. |
-
----
-
-## 2. Deliverables
-
-| # | Deliverable | File |
-|---|---|---|
-| 1 | Requirements table — 5 FRs, 2 NFRs, plus requirement→use-case traceability | [`requirements.md`](requirements.md) |
-| 2 | UML use-case diagram — all actors, 11 use cases, `«include»` and `«extend»` | [`use-case-diagram.svg`](use-case-diagram.svg) · source: [`use-case-diagram.puml`](use-case-diagram.puml) |
-| 3 | Use-case flow specification for UC-02 (Dispense Medicine — FEFO Checkout) | [`use-case-flow.md`](use-case-flow.md) |
 
 ---
 
@@ -60,12 +83,12 @@ The engine sits between the dispensing counter and the supplier. It holds every 
 
 | Extending use case | extends | Extension point / condition |
 |---|---|---|
-| UC-09 Quarantine Expired Batch | UC-03 Run Daily Expiry Sweep | Only when the sweep finds a batch with `expiry_date < today`. A sweep over healthy stock completes without it. |
+| UC-09 Quarantine Expired Batch | UC-03 Run Daily Expiry Sweep | Only when the sweep finds a batch whose expiry date has passed. A sweep over healthy stock completes without it. |
 | UC-11 Escalate Critical Stock-Out Alert | UC-05 Generate & Dispatch Purchase Order | Only when dispensable stock has already reached zero — a normal below-threshold re-order does not escalate. |
 
 ### Re-rendering the diagram
 
-The committed `.svg` is the submitted artefact and needs no tooling to view. The equivalent PlantUML source is provided for regeneration:
+`Use_Case_Diagram.pdf` is the submitted artefact. The vector source and its PlantUML equivalent are provided for regeneration:
 
 ```bash
 java -jar plantuml.jar -tsvg use-case-diagram.puml
@@ -87,4 +110,4 @@ java -jar plantuml.jar -tsvg use-case-diagram.puml
 | NFR-001 | Auto-generate and dispatch purchase orders — latency and security under peak load | High |
 | NFR-002 | Immutable 5-year audit trail; 99.5% availability in operating hours | High |
 
-Full descriptions, acceptance criteria and rationale: [`requirements.md`](requirements.md)
+Full descriptions, acceptance criteria and rationale: **[`Requirements_Table.docx`](Requirements_Table.docx)** · [`requirements.md`](requirements.md)
