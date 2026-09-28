@@ -14,7 +14,7 @@
 
 ## Submission
 
-**[`SE_Lab2_PES1UG24CS383.pdf`](SE_Lab2_PES1UG24CS383.pdf)** — the single combined PDF required by the submission form. Contains the Jira project link, all screenshot evidence, and the four reflection answers.
+**[`Lab2_PES1UG24CS383_G.pdf`](Lab2_PES1UG24CS383_G.pdf)** — the single combined PDF required by the submission form. Contains the Jira project link, all screenshot evidence, and the four reflection answers.
 
 | Handout requirement | Where it appears |
 |---|---|
