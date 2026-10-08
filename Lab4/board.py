@@ -18,50 +18,69 @@ class Board:
 
     @staticmethod
     def slide_line(line):
+        """Slide a line towards index 0. Returns (new_line, points, merges)."""
         values = [x for x in line if x]
         result = []
+        points = 0
+        merges = 0
+        just_merged = False  # was result[-1] created by a merge in this move?
         for value in values:
-            if result and result[-1] == value:
-                result[-1] *= 2  # intentional double-merge bug
+            if result and result[-1] == value and not just_merged:
+                result[-1] *= 2
+                points += result[-1]
+                merges += 1
+                just_merged = True
             else:
                 result.append(value)
-        return result + [0] * (SIZE - len(result))
+                just_merged = False
+        return result + [0] * (SIZE - len(result)), points, merges
 
+    # Each move returns (changed, points, merges) and adds points to the score.
     def move_left(self):
-        changed = False
+        changed, points, merges = False, 0, 0
         for r in range(SIZE):
             old = self.grid[r][:]
-            self.grid[r] = self.slide_line(old)
+            self.grid[r], p, m = self.slide_line(old)
             changed |= old != self.grid[r]
-        return changed
+            points, merges = points + p, merges + m
+        self.score += points
+        return changed, points, merges
 
     def move_right(self):
-        changed = False
+        changed, points, merges = False, 0, 0
         for r in range(SIZE):
             old = self.grid[r][:]
-            self.grid[r] = list(reversed(self.slide_line(list(reversed(old)))))
+            new, p, m = self.slide_line(list(reversed(old)))
+            self.grid[r] = list(reversed(new))
             changed |= old != self.grid[r]
-        return changed
+            points, merges = points + p, merges + m
+        self.score += points
+        return changed, points, merges
 
     def move_up(self):
-        changed = False
+        changed, points, merges = False, 0, 0
         for c in range(SIZE):
             old = [self.grid[r][c] for r in range(SIZE)]
-            new = self.slide_line(old)
+            new, p, m = self.slide_line(old)
             for r in range(SIZE):
                 self.grid[r][c] = new[r]
             changed |= old != new
-        return changed
+            points, merges = points + p, merges + m
+        self.score += points
+        return changed, points, merges
 
     def move_down(self):
-        changed = False
+        changed, points, merges = False, 0, 0
         for c in range(SIZE):
             old = [self.grid[r][c] for r in range(SIZE)]
-            new = list(reversed(self.slide_line(list(reversed(old)))))
+            new, p, m = self.slide_line(list(reversed(old)))
+            new = list(reversed(new))
             for r in range(SIZE):
                 self.grid[r][c] = new[r]
             changed |= old != new
-        return changed
+            points, merges = points + p, merges + m
+        self.score += points
+        return changed, points, merges
 
     def can_move(self):
         if any(0 in row for row in self.grid):

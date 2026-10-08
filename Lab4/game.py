@@ -19,7 +19,7 @@ class Game:
                  "w": self.board.move_up, "s": self.board.move_down}
         if key not in moves:
             return False
-        changed = moves[key]()
+        changed, points, merges = moves[key]()
         if changed:
             self.board.add_random_tile()
         return changed
