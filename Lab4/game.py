@@ -20,19 +20,20 @@ class Game:
         if key not in moves:
             return False
         changed, points, merges = moves[key]()
-        if changed:
-            self.board.add_random_tile()
-        return changed
+        if not changed:
+            return False  # unchanged move: no new tile
+        self.board.add_random_tile()
+        return True
 
     def run(self):
         print("2048 — W/A/S/D to move, U to undo, Q to quit.")
         while True:
             self.display()
-            if any(2048 in row for row in self.board.grid):
-                print("You reached 2048!")
+            if self.board.has_won():
+                print("You reached 2048! You win.")
                 return
             if not self.board.can_move():
-                print("No legal moves remain.")
+                print("No legal moves remain. Game over.")
                 return
             key = input("> ").strip().lower()
             if key == "q":

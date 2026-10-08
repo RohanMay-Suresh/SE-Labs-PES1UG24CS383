@@ -1,6 +1,7 @@
 import random
 
 SIZE = 4
+WIN_TILE = 2048
 
 
 class Board:
@@ -81,6 +82,9 @@ class Board:
             points, merges = points + p, merges + m
         self.score += points
         return changed, points, merges
+
+    def has_won(self):
+        return any(x >= WIN_TILE for row in self.grid for x in row)
 
     def can_move(self):
         if any(0 in row for row in self.grid):
