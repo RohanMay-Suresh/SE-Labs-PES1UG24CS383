@@ -5,7 +5,7 @@ class Game:
     def __init__(self):
         self.board = Board()
         self.best_score = 0
-        self.history = []
+        self.history = []  # at most one snapshot: one-level undo
 
     def display(self):
         print("\n" + "+------+------+------+------+")
@@ -19,10 +19,20 @@ class Game:
                  "w": self.board.move_up, "s": self.board.move_down}
         if key not in moves:
             return False
+        before = self.board.snapshot()
         changed, points, merges = moves[key]()
         if not changed:
             return False  # unchanged move: no new tile
+        self.history = [before]
         self.board.add_random_tile()
+        self.best_score = max(self.best_score, self.board.score)
+        return True
+
+    def undo(self):
+        if not self.history:
+            print("Nothing to undo.")
+            return False
+        self.board.restore(self.history.pop())
         return True
 
     def run(self):
@@ -39,10 +49,9 @@ class Game:
             if key == "q":
                 return
             if key == "u":
-                print("Undo is not implemented yet.")
+                self.undo()
                 continue
             if key not in "wasd":
                 print("Use W/A/S/D.")
                 continue
-            if self.move(key):
-                self.best_score = max(self.best_score, self.board.score)
+            self.move(key)
