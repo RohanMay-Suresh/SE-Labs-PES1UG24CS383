@@ -2,7 +2,6 @@ import pytest
 from parking_fee import parking_fee, find_slot, monthly_pass
 
 
-# parking_fee tests
 def test_free_short_stay():
     assert parking_fee("car", 20, False, False) == 0
 
@@ -26,12 +25,10 @@ def test_negative_minutes():
 
 
 def test_partial_hour_rounded_up():
-    # 90 mins should be charged as 2 hours
     assert parking_fee("car", 90, False, False) == 60
 
 
 def test_exact_hours_not_rounded():
-    # 120 mins is exactly 2 hours, so no extra hour
     assert parking_fee("car", 120, False, False) == 60
 
 
@@ -40,7 +37,6 @@ def test_ev_half_price():
 
 
 def test_ev_truck_no_discount():
-    # trucks don't get the ev discount
     assert parking_fee("truck", 60, True, False) == 60
 
 
@@ -52,7 +48,6 @@ def test_ev_and_lost_ticket():
     assert parking_fee("car", 60, True, True) == 215
 
 
-# find_slot tests
 def test_full():
     assert find_slot("car", 0, False) == "full"
 
@@ -81,7 +76,6 @@ def test_any_floor():
     assert find_slot("car", 5, False) == "any floor"
 
 
-# monthly_pass tests
 def test_bike_pass():
     assert monthly_pass("bike", False) == 500
 
