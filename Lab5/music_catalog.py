@@ -14,7 +14,6 @@ def add_song(title, artist, plays=0, playlist=None):
     """Add a song to the db and return the playlist."""
     if playlist is None:
         playlist = []
-    # using ? placeholders instead of % so the values can't break the query
     conn.execute(
         "INSERT INTO songs (title, artist, plays) VALUES (?, ?, ?)",
         (title, artist, plays)
@@ -39,7 +38,6 @@ def popularity(title):
     return "popular" if row[0] > 100 else "niche"
 
 
-# json instead of pickle, playlist is just a list of strings
 def save_playlist(playlist):
     """Convert the playlist to a json string."""
     return json.dumps(playlist)
